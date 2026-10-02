@@ -1,203 +1,958 @@
+```html
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Travel Mate Archive</title>
+
+<title>Travel Mate Mission</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --ivory:#F3EBDD;
+  --brown:#6B5140;
+  --brown-dark:#49392E;
+  --brown-light:#A58E7A;
+}
+
 body{
-  font-family:Pretendard, sans-serif;
-  background:#000;
+  font-family:Arial, "Pretendard", sans-serif;
+  background:var(--ivory);
+  color:var(--brown-dark);
   overflow:hidden;
 }
 
-/* 배경 */
+
+/* =========================================
+   LOGIN
+========================================= */
+
 #login{
   position:fixed;
   inset:0;
-  background:url("background.jpg") center/cover no-repeat;
+  background:var(--ivory);
+
   display:flex;
   align-items:center;
   justify-content:center;
 }
 
 .overlay{
-  background:rgba(0,0,0,.28);
   width:100%;
   height:100%;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
+  position:relative;
 }
+
+
+/* 왼쪽 위 */
+
+.archive-label{
+  position:absolute;
+
+  top:32px;
+  left:38px;
+
+  font-size:10px;
+  line-height:1.7;
+
+  letter-spacing:1.5px;
+
+  color:var(--brown);
+}
+
+
+/* 오른쪽 위 */
+
+.archive-number{
+  position:absolute;
+
+  top:32px;
+  right:38px;
+
+  text-align:right;
+
+  font-size:10px;
+  line-height:1.7;
+
+  letter-spacing:1px;
+
+  color:var(--brown-light);
+}
+
+
+/* 중앙 */
 
 .box{
-  width:320px;
+  width:min(430px, calc(100% - 48px));
+
   text-align:center;
-  color:white;
+
+  position:relative;
 }
+
+
+/* UNMAPPED */
+
+.code{
+  font-family:monospace;
+
+  font-size:11px;
+
+  letter-spacing:2px;
+
+  margin-bottom:24px;
+
+  color:var(--brown-light);
+}
+
+
+/* 제목 */
 
 h1{
-  font-size:28px;
-  letter-spacing:2px;
-  margin-bottom:10px;
+  font-family:Georgia, "Times New Roman", serif;
+
+  font-size:clamp(42px, 7vw, 68px);
+
+  font-weight:400;
+
+  line-height:.95;
+
+  letter-spacing:-2px;
+
+  color:var(--brown-dark);
+
+  margin-bottom:20px;
 }
 
+
+/* 설명 */
+
 .sub{
-  font-size:13px;
-  opacity:.8;
-  margin-bottom:28px;
+  font-size:11px;
+
+  line-height:1.8;
+
+  letter-spacing:.5px;
+
+  color:var(--brown-light);
+
+  margin-bottom:34px;
 }
+
+
+/* =========================================
+   PASSWORD
+========================================= */
+
+.input-wrap{
+  position:relative;
+
+  width:100%;
+}
+
+
+/* PASSWORD 라벨 */
+
+.input-label{
+  position:absolute;
+
+  left:18px;
+  top:-6px;
+
+  padding:0 7px;
+
+  background:var(--ivory);
+
+  font-family:monospace;
+
+  font-size:9px;
+
+  letter-spacing:1px;
+
+  color:var(--brown);
+
+  z-index:2;
+}
+
 
 input{
   width:100%;
-  padding:16px;
-  border:none;
-  border-radius:999px;
-  background:rgba(255,255,255,.18);
-  backdrop-filter:blur(10px);
-  color:white;
-  font-size:15px;
+
+  height:58px;
+
+  padding:0 20px;
+
+  border:1px solid var(--brown);
+
+  border-radius:0;
+
+  background:transparent;
+
+  color:var(--brown-dark);
+
+  font-family:monospace;
+
+  font-size:13px;
+
+  letter-spacing:2px;
+
   text-align:center;
+
   outline:none;
+
+  transition:.2s;
 }
 
-input::placeholder{
-  color:rgba(255,255,255,.7);
+
+input:focus{
+  border-color:var(--brown-dark);
+
+  background:rgba(107,81,64,.04);
 }
+
+
+input::placeholder{
+  color:var(--brown-light);
+
+  opacity:.7;
+}
+
+
+/* =========================================
+   BUTTON
+========================================= */
 
 button{
   width:100%;
-  margin-top:14px;
-  padding:15px;
-  border:none;
-  border-radius:999px;
-  background:white;
-  color:black;
-  font-weight:600;
+
+  height:58px;
+
+  margin-top:10px;
+
+  border:1px solid var(--brown);
+
+  border-radius:0;
+
+  background:var(--brown);
+
+  color:var(--ivory);
+
+  font-family:monospace;
+
+  font-size:10px;
+
+  letter-spacing:1.5px;
+
   cursor:pointer;
+
+  transition:.2s;
 }
+
+
+button:hover{
+  background:var(--brown-dark);
+}
+
+
+/* 오류 */
 
 .error{
-  color:#ffd5d5;
-  margin-top:12px;
-  font-size:13px;
-  height:18px;
+  color:#9A5547;
+
+  margin-top:14px;
+
+  font-family:monospace;
+
+  font-size:10px;
+
+  min-height:15px;
 }
 
-/* 갤러리 */
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.footer-info{
+  position:absolute;
+
+  bottom:32px;
+
+  left:38px;
+  right:38px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  font-family:monospace;
+
+  font-size:9px;
+
+  letter-spacing:1px;
+
+  color:var(--brown-light);
+}
+
+
+/* =========================================
+   GALLERY
+========================================= */
+
 #gallery{
   display:none;
+
   position:fixed;
+
   inset:0;
-  background:#000;
+
+  background:var(--ivory);
 }
 
+
+/* 사진 */
+
 .slide{
-  width:100%;
-  height:100%;
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  transform:translate(-50%,-50%);
+
+  width:calc(100% - 140px);
+
+  height:calc(100% - 120px);
+
   object-fit:contain;
+
+  transition:opacity .25s ease;
 }
+
+
+/* 상단 */
+
+.gallery-top{
+  position:absolute;
+
+  top:25px;
+
+  left:32px;
+  right:32px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-start;
+
+  z-index:5;
+
+  pointer-events:none;
+}
+
+
+.gallery-title{
+  font-family:monospace;
+
+  font-size:10px;
+
+  letter-spacing:1.5px;
+
+  color:var(--brown);
+}
+
+
+.gallery-date{
+  font-family:monospace;
+
+  font-size:9px;
+
+  letter-spacing:1px;
+
+  color:var(--brown-light);
+}
+
+
+/* =========================================
+   NAV
+========================================= */
 
 .nav{
   position:absolute;
+
   top:50%;
+
   transform:translateY(-50%);
-  font-size:34px;
-  color:white;
-  background:rgba(0,0,0,.25);
+
   width:48px;
+
   height:48px;
+
+  border:1px solid var(--brown);
+
   border-radius:50%;
+
+  background:var(--ivory);
+
+  color:var(--brown);
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
+
+  font-size:28px;
+
   cursor:pointer;
+
   user-select:none;
+
+  transition:.2s;
 }
 
-.prev{left:18px;}
-.next{right:18px;}
+
+.nav:hover{
+  background:var(--brown);
+
+  color:var(--ivory);
+}
+
+
+.prev{
+  left:24px;
+}
+
+
+.next{
+  right:24px;
+}
+
+
+/* =========================================
+   GALLERY BOTTOM
+========================================= */
+
+.gallery-bottom{
+  position:absolute;
+
+  bottom:25px;
+
+  left:32px;
+  right:32px;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  justify-content:space-between;
+
+  z-index:5;
+}
+
+
+.location{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:6px;
+}
+
+
+.location-main{
+  font-family:Georgia, "Times New Roman", serif;
+
+  font-size:18px;
+
+  color:var(--brown-dark);
+}
+
+
+.location-sub{
+  font-family:monospace;
+
+  font-size:8px;
+
+  letter-spacing:1px;
+
+  color:var(--brown-light);
+}
+
+
+/* 숫자 */
 
 .count{
-  position:absolute;
-  bottom:24px;
-  left:50%;
-  transform:translateX(-50%);
-  color:white;
-  font-size:14px;
-  background:rgba(0,0,0,.35);
-  padding:8px 14px;
-  border-radius:20px;
+  font-family:monospace;
+
+  font-size:10px;
+
+  letter-spacing:1px;
+
+  color:var(--brown);
+
+  border:1px solid var(--brown-light);
+
+  padding:9px 13px;
 }
+
+
+.count .current{
+  color:var(--brown-dark);
+
+  font-weight:bold;
+}
+
+
+/* 선 */
+
+.line{
+  position:absolute;
+
+  left:32px;
+  right:32px;
+
+  bottom:76px;
+
+  height:1px;
+
+  background:var(--brown-light);
+
+  opacity:.45;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:600px){
+
+  .archive-label{
+    top:22px;
+    left:20px;
+  }
+
+  .archive-number{
+    top:22px;
+    right:20px;
+  }
+
+  .footer-info{
+    bottom:22px;
+    left:20px;
+    right:20px;
+  }
+
+  h1{
+    font-size:46px;
+  }
+
+  .box{
+    width:calc(100% - 42px);
+  }
+
+  .slide{
+    width:calc(100% - 36px);
+
+    height:calc(100% - 170px);
+  }
+
+  .gallery-top{
+    top:20px;
+
+    left:20px;
+    right:20px;
+  }
+
+  .gallery-bottom{
+    bottom:20px;
+
+    left:20px;
+    right:20px;
+  }
+
+  .line{
+    left:20px;
+    right:20px;
+
+    bottom:70px;
+  }
+
+  .nav{
+    width:42px;
+    height:42px;
+
+    font-size:23px;
+  }
+
+  .prev{
+    left:10px;
+  }
+
+  .next{
+    right:10px;
+  }
+
+  .location-main{
+    font-size:15px;
+  }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
+
+<!-- =========================================
+     LOGIN
+========================================= -->
+
 <section id="login">
+
   <div class="overlay">
-    <div class="box">
-      <h1>TRAVEL MATE</h1>
-      <p class="sub">암호를 입력하면 아카이브가 열립니다.</p>
 
-      <input id="pw" placeholder="PASSWORD"/>
-      <button onclick="checkPassword()">ENTER</button>
 
-      <div class="error" id="error"></div>
+    <div class="archive-label">
+      JOURNEY LOG<br>
+      001 / TRAVEL MATE
     </div>
+
+
+    <div class="archive-number">
+      HYOJUNG'S JOURNEY<br>
+      2026
+    </div>
+
+
+    <div class="box">
+
+
+      <div class="code">
+        UNMAPPED
+      </div>
+
+
+      <h1>
+        TRAVEL MATE<br>
+        MISSION
+      </h1>
+
+
+      <p class="sub">
+        암호를 입력하면<br>
+        보물상자가 열립니다.
+      </p>
+
+
+      <div class="input-wrap">
+
+        <div class="input-label">
+          PASSWORD
+        </div>
+
+
+        <input
+          id="pw"
+          type="password"
+          placeholder="ENTER PASSWORD"
+          autocomplete="off"
+        />
+
+      </div>
+
+
+      <button onclick="checkPassword()">
+        UNLOCK THE CHEST →
+      </button>
+
+
+      <div
+        class="error"
+        id="error">
+      </div>
+
+
+    </div>
+
+
+    <div class="footer-info">
+      <span>A NOTE FOR YOUR JOURNEY</span>
+      <span>KEEP GOING</span>
+    </div>
+
+
   </div>
+
 </section>
+
+
+
+<!-- =========================================
+     GALLERY
+========================================= -->
 
 <section id="gallery">
-  <img id="photo" class="slide" src="">
-  <div class="nav prev" onclick="prev()">‹</div>
-  <div class="nav next" onclick="next()">›</div>
-  <div class="count"><span id="current"></span> / <span id="total"></span></div>
+
+
+  <div class="gallery-top">
+
+    <div class="gallery-title">
+      TRAVEL MATE MISSION
+    </div>
+
+    <div class="gallery-date">
+      HYOJUNG · 2026
+    </div>
+
+  </div>
+
+
+  <img
+    id="photo"
+    class="slide"
+    src=""
+    alt="Travel Mate Mission"
+  />
+
+
+  <div
+    class="nav prev"
+    onclick="prev()">
+    ‹
+  </div>
+
+
+  <div
+    class="nav next"
+    onclick="next()">
+    ›
+  </div>
+
+
+  <div class="line"></div>
+
+
+  <div class="gallery-bottom">
+
+
+    <div class="location">
+
+      <div class="location-main">
+        JOURNEY LOG
+      </div>
+
+      <div class="location-sub">
+        A MOMENT FROM THE JOURNEY
+      </div>
+
+    </div>
+
+
+    <div class="count">
+
+      <span
+        id="current"
+        class="current">
+      </span>
+
+      <span> / </span>
+
+      <span id="total">
+      </span>
+
+    </div>
+
+
+  </div>
+
+
 </section>
 
-<script>
-const PASSWORD = "ALONE"; // 원하는 암호로 변경
 
+
+<script>
+
+/* =========================================
+   ★ DAY / PASSWORD / IMAGE
+   ========================================= */
+
+/* ★ 비밀번호 변경하는 곳 */
+const PASSWORD = "ALONE";
+
+/* ★ 사진 파일명 변경하는 곳
+   GitHub의 images 폴더 안에 있는
+   실제 파일명과 똑같이 적어주세요. */
 const images = [
-  "images/01.jpg"
+  "images/image05.jpg",
+  "images/image06.jpg"
 ];
+
+
+/* =========================================
+   GALLERY INDEX
+   ========================================= */
 
 let index = 0;
 
+
+/* =========================================
+   PASSWORD CHECK
+   ========================================= */
+
 function checkPassword(){
-  const value = document.getElementById("pw").value.trim();
+
+  const value =
+    document
+      .getElementById("pw")
+      .value
+      .trim()
+      .toUpperCase();
+
 
   if(value === PASSWORD){
-    document.getElementById("login").style.display="none";
-    document.getElementById("gallery").style.display="block";
+
+    document
+      .getElementById("login")
+      .style.display = "none";
+
+
+    document
+      .getElementById("gallery")
+      .style.display = "block";
+
+
+    index = 0;
+
     showImage();
+
+
   }else{
-    document.getElementById("error").innerText="암호가 올바르지 않습니다.";
+
+    document
+      .getElementById("error")
+      .innerText =
+      "PASSWORD가 올바르지 않습니다.";
+
   }
+
 }
+
+
+/* =========================================
+   IMAGE
+   ========================================= */
+
+let index = 0;
 
 function showImage(){
-  document.getElementById("photo").src = images[index];
-  document.getElementById("current").innerText = index + 1;
-  document.getElementById("total").innerText = images.length;
+  const photo = document.getElementById("photo");
+
+  photo.src = images[index];
+
+  document.getElementById("current").innerText =
+    String(index + 1).padStart(2, "0");
+
+  document.getElementById("total").innerText =
+    String(images.length).padStart(2, "0");
 }
+
+
+/* =========================================
+   NEXT
+   ========================================= */
 
 function next(){
-  index = (index + 1) % images.length;
+
+  index =
+    (index + 1) %
+    images.length;
+
   showImage();
+
 }
+
+
+/* =========================================
+   PREVIOUS
+   ========================================= */
 
 function prev(){
-  index = (index - 1 + images.length) % images.length;
+
+  index =
+    (index - 1 + images.length) %
+    images.length;
+
   showImage();
+
 }
 
-document.getElementById("pw").addEventListener("keydown",(e)=>{
-  if(e.key==="Enter") checkPassword();
-});
+
+/* =========================================
+   ENTER KEY
+   ========================================= */
+
+document
+  .getElementById("pw")
+  .addEventListener(
+    "keydown",
+    (e) => {
+
+      if(e.key === "Enter"){
+        checkPassword();
+      }
+
+    }
+  );
+
+
+/* =========================================
+   KEYBOARD
+   ========================================= */
+
+document.addEventListener(
+  "keydown",
+  (e) => {
+
+    if(
+      document
+        .getElementById("gallery")
+        .style
+        .display === "block"
+    ){
+
+      if(e.key === "ArrowRight"){
+        next();
+      }
+
+      if(e.key === "ArrowLeft"){
+        prev();
+      }
+
+    }
+
+  }
+);
+
 </script>
+
 
 </body>
 </html>
+```
